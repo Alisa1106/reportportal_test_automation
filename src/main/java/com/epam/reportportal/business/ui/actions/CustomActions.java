@@ -45,4 +45,9 @@ public class CustomActions {
     public void watTitle(String label) {
         new Title(driver).wait(label);
     }
+
+    @Step("Click on the hint")
+    public void clickHint() {
+        new ErrorHint(driver).click();
+    }
 }

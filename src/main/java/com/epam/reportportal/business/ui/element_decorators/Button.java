@@ -12,7 +12,7 @@ import static com.epam.reportportal.business.ui.constants.TimeoutCons.SHORT_TIME
 public class Button extends AbstractElement {
 
     private String label;
-    private static final String BUTTON_XPATH = "(//button[text()='%s']) | (//button//span[text()='%s']) | (//input[@value='%s'])";
+    private static final String BUTTON_XPATH = "(//button[text()='%s']) | (//button//span[text()='%s'])";
 
     public Button(WebDriver driver, String label) {
         super(driver);
@@ -21,7 +21,7 @@ public class Button extends AbstractElement {
 
     public void click() {
         log.info(String.format("Click on the button '%s'.", label));
-        By button = By.xpath(String.format(BUTTON_XPATH, label, label, label));
+        By button = By.xpath(String.format(BUTTON_XPATH, label, label));
         waiters.waitForElementLocated(button, Duration.ofSeconds(SHORT_TIMEOUT_IN_SECONDS));
         driver.findElement(button).click();
     }
