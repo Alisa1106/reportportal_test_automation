@@ -19,7 +19,7 @@ public class BaseTest {
     @BeforeClass
     public void initTest(ITestContext context) {
         driver = DriverContainer.getDriver();
-        driver.manage().window().setSize(new Dimension(1920, 1200));
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         String variable = "driver";
         log.debug(String.format("Setting driver into context with variable name: %s", variable));
         context.setAttribute(variable, DriverContainer.getDriver());
