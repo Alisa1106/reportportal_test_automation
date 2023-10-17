@@ -18,6 +18,7 @@ public class LaunchesPage extends SideBar {
 
     public LaunchesPage waitForPageLoaded() {
         customActions.watTitle(TITLE);
+        waitForSpinnerIsDisappeared();
         return this;
     }
 
