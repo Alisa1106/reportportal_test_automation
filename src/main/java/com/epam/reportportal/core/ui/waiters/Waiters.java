@@ -22,7 +22,7 @@ public class Waiters {
             wait = new WebDriverWait(driver, timeout);
             wait.until(ExpectedConditions.visibilityOfElementLocated(element));
         } catch (TimeoutException e) {
-            log.error(String.format("Element: '%s' isn't found after %s", timeout, e.getLocalizedMessage()));
+            log.error(String.format("Element: '%s' is not found after %s", timeout, e.getLocalizedMessage()));
         }
     }
 
@@ -32,6 +32,15 @@ public class Waiters {
             wait.until(ExpectedConditions.invisibilityOfElementLocated(element));
         } catch (TimeoutException e) {
             log.error(String.format("Element: '%s' is still displayed after %s", timeout, e.getLocalizedMessage()));
+        }
+    }
+
+    public void waitForElementIsClickable(By element, Duration timeout) {
+        try {
+            wait = new WebDriverWait(driver, timeout);
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (TimeoutException e) {
+            log.error(String.format("Element: '%s' is not clickable after %s", timeout, e.getLocalizedMessage()));
         }
     }
 }

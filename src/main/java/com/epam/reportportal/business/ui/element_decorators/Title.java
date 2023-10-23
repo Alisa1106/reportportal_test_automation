@@ -9,14 +9,22 @@ import static com.epam.reportportal.business.ui.constants.TimeoutCons.LONG_TIMEO
 
 public class Title extends AbstractElement {
 
-    private static final String TITLE_XPATH = "(//span[@title='%s']) | (//div[text()='%s'])";
+    private static final String TITLE_XPATH = "(//span[@title='%s']) | (//*[text()='%s'])";
 
     public Title(WebDriver driver) {
         super(driver);
     }
 
+    public By getBy(String label) {
+        return By.xpath(String.format(TITLE_XPATH, label, label));
+    }
+
     public void wait(String label) {
-        By title = By.xpath(String.format(TITLE_XPATH, label, label));
-        waiters.waitForElementLocated(title, Duration.ofSeconds(LONG_TIMEOUT_IN_SECONDS));
+        waiters.waitForElementLocated(getBy(label), Duration.ofSeconds(LONG_TIMEOUT_IN_SECONDS));
+    }
+
+    public boolean isDisplayed(String label) {
+        wait(label);
+        return driver.findElement(getBy(label)).isDisplayed();
     }
 }

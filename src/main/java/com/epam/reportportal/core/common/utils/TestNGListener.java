@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 @Log4j2
-public class TestListener implements ITestListener {
+public class TestNGListener implements ITestListener {
 
     @Override
     public void onTestStart(ITestResult iTestResult) {

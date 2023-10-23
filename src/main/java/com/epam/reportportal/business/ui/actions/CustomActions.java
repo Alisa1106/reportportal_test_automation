@@ -42,12 +42,26 @@ public class CustomActions {
         selector.select(value);
     }
 
-    public void watTitle(String label) {
+    public void waitTitle(String label) {
         new Title(driver).wait(label);
     }
 
     @Step("Click on the hint")
     public void clickHint() {
         new ErrorHint(driver).click();
+    }
+
+    @Step("Hover to the defects 'Donut chart' with color '{color}'")
+    public void hoverToDonutChart(String color) {
+        new DonutChart(driver, color).hover();
+    }
+
+    @Step("Mark the checkbox number '{index}'")
+    public void markCheckbox(int index) {
+        new Checkbox(driver).mark(index);
+    }
+
+    public boolean isTitleDisplayed(String label) {
+        return new Title(driver).isDisplayed(label);
     }
 }
