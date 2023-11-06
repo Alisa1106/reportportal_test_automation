@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.ui.steps;
+package com.epam.reportportal.business.ui.steps.ui;
 
 import com.epam.reportportal.business.ui.pages.DashboardsPage;
 import io.qameta.allure.Step;

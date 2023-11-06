@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.ui.steps;
+package com.epam.reportportal.business.ui.steps.ui;
 
 import com.epam.reportportal.business.ui.modals.*;
 import com.epam.reportportal.business.ui.pages.LaunchesPage;
@@ -57,5 +57,29 @@ public class LaunchesSteps {
     @Step("Get names of all launches on the modal")
     public Set<String> getLaunchesNames() {
         return compareLaunchesModal.getLaunchesNamesText();
+    }
+
+    @Step("Close modal '{modalName}' by clicking Cancel button")
+    public void closeModalByCancelButton(String modalName) {
+        switch (modalName) {
+            case "Edit" -> editLaunchesModal.closeModalByCancelButton();
+            case "Merge" -> mergeLaunchesModal.closeModalByCancelButton();
+            case "Compare" -> compareLaunchesModal.closeModalByCancelButton();
+            case "Move to debug" -> moveToDebugModal.closeModalByCancelButton();
+            case "Delete" -> deleteLaunchesModal.closeModalByCancelButton();
+        }
+    }
+
+    @Step("Verify that '{actionName}' modal is closed")
+    public boolean isCurrentModalClosed(String actionName) {
+        boolean isModalClosed = false;
+        switch (actionName) {
+            case "Edit" -> isModalClosed = editLaunchesModal.isModalClosed();
+            case "Merge" -> isModalClosed = mergeLaunchesModal.isModalClosed();
+            case "Compare" -> isModalClosed = compareLaunchesModal.isModalClosed();
+            case "Move to debug" -> isModalClosed = moveToDebugModal.isModalClosed();
+            case "Delete" -> isModalClosed = deleteLaunchesModal.isModalClosed();
+        }
+        return isModalClosed;
     }
 }

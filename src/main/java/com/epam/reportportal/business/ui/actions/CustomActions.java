@@ -43,7 +43,7 @@ public class CustomActions {
     }
 
     public void waitTitle(String label) {
-        new Title(driver).wait(label);
+        new Title(driver).waitForVisible(label);
     }
 
     @Step("Click on the hint")
@@ -63,5 +63,9 @@ public class CustomActions {
 
     public boolean isTitleDisplayed(String label) {
         return new Title(driver).isDisplayed(label);
+    }
+
+    public boolean isTitleNotDisplayed(String label) {
+        return new Title(driver).isNotDisplayed(label);
     }
 }

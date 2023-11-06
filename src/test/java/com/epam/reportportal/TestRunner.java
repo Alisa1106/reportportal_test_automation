@@ -5,56 +5,68 @@ import com.epam.reportportal.business.factories.DashboardFactory;
 import com.epam.reportportal.business.models.Launches;
 import com.epam.reportportal.business.models.ResponseData;
 import com.epam.reportportal.business.models.response_data.Content;
-import com.epam.reportportal.core.common.utils.TestNGListener;
+import com.epam.reportportal.core.common.utils.JUnitListener;
 import com.epam.reportportal.core.ui.drivers.DriverContainer;
 import com.google.gson.Gson;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
 import lombok.extern.log4j.Log4j2;
+
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
-import org.testng.annotations.*;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Log4j2
-@Listeners(TestNGListener.class)
-public class TestNGBaseTest {
+@ExtendWith({SpringExtension.class, JUnitListener.class})
+@RunWith(Cucumber.class)
+@CucumberOptions(
+        features = {"classpath:features"},
+        glue = {"com.epam.reportportal.bdd.step_definitions"},
+        tags = "@regression"
+)
+public class TestRunner {
 
     protected WebDriver driver;
     protected Client client;
-    private List<Long> idList = new ArrayList<>();
+    protected List<Long> idList = new ArrayList<>();
 
-    @BeforeMethod
-    public void initTest(ITestContext context) {
-        driver = DriverContainer.getDriver();
-        driver.manage().window().maximize();
-        String variable = "driver";
-        log.debug(String.format("Setting driver into context with variable name: %s", variable));
-        context.setAttribute(variable, DriverContainer.getDriver());
-    }
-
-    @BeforeMethod
+    @Before
     public void createTestData() {
         client = new Client();
         log.debug("Create demo data");
         client.createDemoData(DashboardFactory.demoDashboard());
         String jsonResponse = client.getLaunches().asString();
         Gson gson = new Gson();
-        ResponseData response = gson.fromJson(jsonResponse, ResponseData.class);
-        Arrays.stream(response.getContent())
+        ResponseData responseData = gson.fromJson(jsonResponse, ResponseData.class);
+        Arrays.stream(responseData.getContent())
                 .map(Content::getId)
                 .forEach(idList::add);
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void endTest() {
+    @Before
+    public void initDriver() {
+        driver = DriverContainer.getDriver();
+        driver.manage().window().maximize();
+        String variable = "driver";
+        log.debug(String.format("Setting driver into context with variable name: %s", variable));
+    }
+
+    @After
+    public void removeDriver() {
         log.debug("Close browser");
         DriverContainer.getDriver().quit();
         DriverContainer.removeDriver();
     }
 
-    @AfterMethod(alwaysRun = true)
+    @After
     public void deleteTestData() {
         Launches launches = new Launches();
         launches.setIdList(idList);

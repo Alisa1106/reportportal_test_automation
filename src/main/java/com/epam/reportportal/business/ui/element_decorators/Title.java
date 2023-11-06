@@ -1,6 +1,7 @@
 package com.epam.reportportal.business.ui.element_decorators;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
 import java.time.Duration;
@@ -19,12 +20,25 @@ public class Title extends AbstractElement {
         return By.xpath(String.format(TITLE_XPATH, label, label));
     }
 
-    public void wait(String label) {
+    public void waitForVisible(String label) {
         waiters.waitForElementLocated(getBy(label), Duration.ofSeconds(LONG_TIMEOUT_IN_SECONDS));
     }
 
+    public void waitForInvisible(String label) {
+        waiters.waitForElementIsDisappeared(getBy(label), Duration.ofSeconds(LONG_TIMEOUT_IN_SECONDS));
+    }
+
     public boolean isDisplayed(String label) {
-        wait(label);
+        waitForVisible(label);
         return driver.findElement(getBy(label)).isDisplayed();
+    }
+
+    public boolean isNotDisplayed(String label) {
+        try {
+            waitForInvisible(label);
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
     }
 }

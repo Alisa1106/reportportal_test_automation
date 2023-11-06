@@ -22,6 +22,11 @@ public class CompareLaunchesModal extends AbstractModal {
         return customActions.isTitleDisplayed(TITLE);
     }
 
+    @Override
+    public boolean isModalClosed() {
+        return customActions.isTitleNotDisplayed(TITLE);
+    }
+
     public Set<String> getLaunchesNamesText() {
         return driver.findElements(LAUNCH_NUMBER).stream()
                 .map(WebElement::getText)

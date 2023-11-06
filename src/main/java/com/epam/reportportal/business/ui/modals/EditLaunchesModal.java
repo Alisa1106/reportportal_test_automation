@@ -14,4 +14,9 @@ public class EditLaunchesModal extends AbstractModal {
     public boolean isModalOpened() {
         return customActions.isTitleDisplayed(TITLE);
     }
+
+    @Override
+    public boolean isModalClosed() {
+        return customActions.isTitleNotDisplayed(TITLE);
+    }
 }

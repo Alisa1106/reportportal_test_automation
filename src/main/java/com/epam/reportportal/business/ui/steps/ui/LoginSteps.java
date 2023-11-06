@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.ui.steps;
+package com.epam.reportportal.business.ui.steps.ui;
 
 import com.epam.reportportal.business.models.User;
 import com.epam.reportportal.business.ui.pages.LoginPage;
