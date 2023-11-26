@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.models.response_data.content.statistics.defects;
+package com.epam.reportportal.business.models.response_launches_data.launches_content.statistics.defects;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductBug {
+public class ToInvestigate {
 
     private int total;
-    private int pb001;
+    private int ti001;
 }

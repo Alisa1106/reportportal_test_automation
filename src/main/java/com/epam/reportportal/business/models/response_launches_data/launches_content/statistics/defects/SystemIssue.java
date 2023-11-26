@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.models.response_data.content.statistics.defects;
+package com.epam.reportportal.business.models.response_launches_data.launches_content.statistics.defects;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AutomationBug {
+public class SystemIssue {
 
     private int total;
-    private int ab001;
+    private int si001;
 }

@@ -1,6 +1,7 @@
 package com.epam.reportportal.business.models;
 
-import com.epam.reportportal.business.models.response_data.Content;
+import com.epam.reportportal.business.models.Reponse_filters_data.FiltersContent;
+import com.epam.reportportal.business.models.Reponse_filters_data.Page;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResponseData {
+public class ResponseFiltersData {
 
-    private Content[] content;
+    private FiltersContent[] content;
+    private Page page;
 }

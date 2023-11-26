@@ -1,8 +1,8 @@
-package com.epam.reportportal.business.models.response_data;
+package com.epam.reportportal.business.models.response_launches_data;
 
-import com.epam.reportportal.business.models.response_data.content.Analysing;
-import com.epam.reportportal.business.models.response_data.content.Attributes;
-import com.epam.reportportal.business.models.response_data.content.Statistics;
+import com.epam.reportportal.business.models.response_launches_data.launches_content.Analysing;
+import com.epam.reportportal.business.models.response_launches_data.launches_content.Attributes;
+import com.epam.reportportal.business.models.response_launches_data.launches_content.Statistics;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Content {
+public class LaunchesContent {
 
     private String owner;
     private String description;

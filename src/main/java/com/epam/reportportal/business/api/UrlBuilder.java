@@ -20,4 +20,24 @@ public class UrlBuilder {
     public String launchByFilterUri(String filterName, String filterValue) {
         return url + String.format("%s/launch?filter.eq.%s=%s", PROJECT_NAME, filterName, filterValue);
     }
+
+    public String launchToCompareUri(long firstLaunchId, long secondLaunchId) {
+        return url + String.format("%s/launch/compare?ids=%s&ids=%s", PROJECT_NAME, firstLaunchId, secondLaunchId);
+    }
+
+    public String launchAnalysisUri() {
+        return url + String.format("%s/launch/analyze", PROJECT_NAME);
+    }
+
+    public String filtersUri() {
+        return url + String.format("%s/filter", PROJECT_NAME);
+    }
+
+    public String filtersByIdUri(long filterId) {
+        return url + String.format("%s/filter/%s", PROJECT_NAME, filterId);
+    }
+
+    public String launchByIdToUpdateUri(long launchId) {
+        return url + String.format("%s/launch/%s/update", PROJECT_NAME, launchId);
+    }
 }

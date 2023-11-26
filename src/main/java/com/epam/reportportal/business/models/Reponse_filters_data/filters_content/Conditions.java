@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.models.response_data.content;
+package com.epam.reportportal.business.models.Reponse_filters_data.filters_content;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Attributes {
+public class Conditions {
 
-    private String key;
+    private String filteringField;
+    private String condition;
     private String value;
 }

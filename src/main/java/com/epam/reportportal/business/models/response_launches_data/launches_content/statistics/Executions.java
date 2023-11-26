@@ -1,4 +1,4 @@
-package com.epam.reportportal.business.models.response_data.content.statistics;
+package com.epam.reportportal.business.models.response_launches_data.launches_content.statistics;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

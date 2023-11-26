@@ -3,8 +3,8 @@ package com.epam.reportportal;
 import com.epam.reportportal.business.api.Client;
 import com.epam.reportportal.business.factories.DashboardFactory;
 import com.epam.reportportal.business.models.Launches;
-import com.epam.reportportal.business.models.ResponseData;
-import com.epam.reportportal.business.models.response_data.Content;
+import com.epam.reportportal.business.models.ResponseLaunchesData;
+import com.epam.reportportal.business.models.response_launches_data.LaunchesContent;
 import com.epam.reportportal.core.common.utils.JUnitListener;
 import com.epam.reportportal.core.ui.drivers.DriverContainer;
 import com.google.gson.Gson;
@@ -45,9 +45,9 @@ public class TestRunner {
         client.createDemoData(DashboardFactory.demoDashboard());
         String jsonResponse = client.getLaunches().asString();
         Gson gson = new Gson();
-        ResponseData responseData = gson.fromJson(jsonResponse, ResponseData.class);
-        Arrays.stream(responseData.getContent())
-                .map(Content::getId)
+        ResponseLaunchesData responseLaunchesData = gson.fromJson(jsonResponse, ResponseLaunchesData.class);
+        Arrays.stream(responseLaunchesData.getContent())
+                .map(LaunchesContent::getId)
                 .forEach(idList::add);
     }
 
