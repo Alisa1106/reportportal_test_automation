@@ -1,16 +1,17 @@
 package com.epam.reportportal.bdd.step_definitions;
 
 import com.epam.reportportal.business.api.Client;
+import com.epam.reportportal.business.api.Response;
 import com.epam.reportportal.business.factories.FiltersFactory;
 import com.epam.reportportal.business.factories.LaunchAnalysisFactory;
 import com.epam.reportportal.business.factories.LaunchFactory;
 import com.epam.reportportal.business.models.*;
 import com.epam.reportportal.business.models.Reponse_filters_data.FiltersContent;
 import com.epam.reportportal.business.models.response_launches_data.LaunchesContent;
+import com.google.gson.Gson;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
@@ -27,13 +28,17 @@ public class ApiDefinitions {
     ResponseFiltersData responseFiltersData;
     ResponseDeletedLaunchData responseDeletedLaunchData;
 
+    private <T> T parseResponse(String responseBody, Class<T> clazz) {
+        Gson gson = new Gson();
+        return gson.fromJson(responseBody, clazz);
+    }
+
     @When("^I send GET request to get Launches list by filtering by \"([^\"]*)\": \"([^\"]*)\"$")
     public void sendGetRequestToGetLaunchesListByFilteringBy(String filterName, String filterValue) {
         client = new Client();
         response = client.getLaunchesByFilter(filterName, filterValue);
-        responseLaunchesData = response.getBody().as(ResponseLaunchesData.class);
+        responseLaunchesData = parseResponse(response.getBody(), ResponseLaunchesData.class);
     }
-
 
     @When("^I get launches IDs from response$")
     public List<Long> getLaunchesIDsFromResponse() {
@@ -66,7 +71,7 @@ public class ApiDefinitions {
     public void sendGetRequestToGetLaunchesList() {
         client = new Client();
         response = client.getLaunches();
-        responseLaunchesData = response.getBody().as(ResponseLaunchesData.class);
+        responseLaunchesData = parseResponse(response.getBody(), ResponseLaunchesData.class);
     }
 
     @When("^I send GET request to compare launches (\\d+) and (\\d+)$")
@@ -107,7 +112,7 @@ public class ApiDefinitions {
 
     @Then("^I see response message is '(.*)'$")
     public void seeResponseMessageIs(String message) {
-        responseMessage = response.getBody().as(ResponseMessage.class);
+        responseMessage = parseResponse(response.getBody(), ResponseMessage.class);
         Assertions.assertTrue(responseMessage.getMessage().replaceAll("[?\\[\\]\"'\n;,$:]", "")
                 .trim().matches(message.replaceAll("[?\\[\\]\"'\n;,$:]", "")));
     }
@@ -121,7 +126,7 @@ public class ApiDefinitions {
     public void sendGETRequestToGetAllFiltersForProject() {
         client = new Client();
         response = client.getFilters();
-        responseFiltersData = response.getBody().as(ResponseFiltersData.class);
+        responseFiltersData = parseResponse(response.getBody(), ResponseFiltersData.class);
     }
 
     @When("^I get filters IDs from response$")
@@ -155,7 +160,7 @@ public class ApiDefinitions {
     @When("^I get launch with index (\\d+) from response$")
     public LaunchesContent getLaunchWithIndexFromResponse(int launchIndex) {
         List<LaunchesContent> launches;
-        launches = List.of(response.getBody().as(ResponseLaunchesData.class).getContent());
+        launches = List.of(parseResponse(response.getBody(), ResponseLaunchesData.class).getContent());
         return launches.get(launchIndex);
     }
 
@@ -179,7 +184,7 @@ public class ApiDefinitions {
     public void seeDeletedLaunchIDInTheResponseSuccessfullySection(int launchIndex) {
         List<Long> deletedLaunchId = new ArrayList<>();
         deletedLaunchId.add(getLaunchIDFromResponse(launchIndex));
-        responseDeletedLaunchData = response.getBody().as(ResponseDeletedLaunchData.class);
+        responseDeletedLaunchData = parseResponse(response.getBody(), ResponseDeletedLaunchData.class);
         Assertions.assertEquals(deletedLaunchId, List.of(responseDeletedLaunchData.getSuccessfullyDeleted()));
     }
 
@@ -196,7 +201,7 @@ public class ApiDefinitions {
     public void seeIdOfDeletedLaunchWithIDInTheResponseNotFoundSection(long launchId) {
         List<Long> deletedLaunchId = new ArrayList<>();
         deletedLaunchId.add(launchId);
-        responseDeletedLaunchData = response.getBody().as(ResponseDeletedLaunchData.class);
+        responseDeletedLaunchData = parseResponse(response.getBody(), ResponseDeletedLaunchData.class);
         Assertions.assertEquals(deletedLaunchId, List.of(responseDeletedLaunchData.getNotFound()));
     }
 }

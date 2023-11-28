@@ -11,8 +11,6 @@ import com.google.gson.Gson;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import lombok.extern.log4j.Log4j2;
-
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -43,7 +41,7 @@ public class TestRunner {
         client = new Client();
         log.debug("Create demo data");
         client.createDemoData(DashboardFactory.demoDashboard());
-        String jsonResponse = client.getLaunches().asString();
+        String jsonResponse = client.getLaunches().getBody();
         Gson gson = new Gson();
         ResponseLaunchesData responseLaunchesData = gson.fromJson(jsonResponse, ResponseLaunchesData.class);
         Arrays.stream(responseLaunchesData.getContent())
