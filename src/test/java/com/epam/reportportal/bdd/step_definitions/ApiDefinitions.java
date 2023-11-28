@@ -21,12 +21,14 @@ import java.util.List;
 
 public class ApiDefinitions {
 
-    Response response;
-    ResponseLaunchesData responseLaunchesData;
-    Client client;
-    ResponseMessage responseMessage;
-    ResponseFiltersData responseFiltersData;
-    ResponseDeletedLaunchData responseDeletedLaunchData;
+    private Response response;
+    private ResponseLaunchesData responseLaunchesData;
+    private Client client;
+    private ResponseMessage responseMessage;
+    private ResponseFiltersData responseFiltersData;
+    private ResponseDeletedLaunchData responseDeletedLaunchData;
+    private long launchId;
+    private LaunchesContent launchesContent;
 
     private <T> T parseResponse(String responseBody, Class<T> clazz) {
         Gson gson = new Gson();
@@ -166,8 +168,9 @@ public class ApiDefinitions {
 
     @When("^I delete launch with index (\\d+)$")
     public void iDeleteLaunchWithIndex(int launchIndex) {
-        long launchId = getLaunchIDFromResponse(launchIndex);
+        launchId = getLaunchIDFromResponse(launchIndex);
         Launches launches = new Launches();
+        launchesContent = getLaunchWithIndexFromResponse(launchIndex);
         launches.setIdList(Collections.singletonList(launchId));
         response = client.deleteLaunches(launches);
     }
@@ -203,5 +206,12 @@ public class ApiDefinitions {
         deletedLaunchId.add(launchId);
         responseDeletedLaunchData = parseResponse(response.getBody(), ResponseDeletedLaunchData.class);
         Assertions.assertEquals(deletedLaunchId, List.of(responseDeletedLaunchData.getNotFound()));
+    }
+
+    @When("^I send PUT request to update launch by ID$")
+    public void iSendPUTRequestToUpdateLaunchById() {
+        LaunchesContent originalContent = launchesContent;
+        LaunchesContent updatedContent = LaunchFactory.validLaunchWithUpdatedDescription(originalContent);
+        response = client.updateLaunch(updatedContent, launchId);
     }
 }

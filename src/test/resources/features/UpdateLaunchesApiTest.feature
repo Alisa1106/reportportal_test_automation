@@ -17,7 +17,7 @@ Feature: User is able to update launch via PUT request
     When I get launches IDs from response
     And I delete launch with index 1
     Then I see request status code is 200
-    When I send PUT request to update launch with index 1
+    When I send PUT request to update launch by ID
     Then I see request status code is 404
     And I see response message is 'Launch '.*' not found. Did you use correct Launch ID?'
 

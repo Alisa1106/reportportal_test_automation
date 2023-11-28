@@ -32,7 +32,7 @@ public class Client {
     private final String AUTHORIZATION = "Authorization";
     private final String BEARER = "Bearer ";
     private final String ACCEPT = "*/*";
-    private String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDEyNjg4OTMsInVzZXJfbmFtZSI6ImFoYXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiX25STzhqcXNLcU5tblJILVE3VnhrWlJuTFFVIiwiY2xpZW50X2lkIjoidWkiLCJzY29wZSI6WyJ1aSJdfQ.Y9lW5ihQD-KVamCYOrHiW2FnYMiCy_99LWPo6wk7zZU";
+    private String token = System.getProperty("token");
     private final HttpClient httpClient = HttpClientBuilder.create().build();
 
     private Response sendRequest(String url, String json, HttpMethod method) {
