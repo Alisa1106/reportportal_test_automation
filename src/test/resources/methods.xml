@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Test Suite" parallel="tests" thread-count="2">
+    <test name="SortLaunchesTests">
+        <classes>
+            <class name="com.epam.reportportal.ui.testng_tests.SortLaunchesTests"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="DefectTypesTests">
+        <classes>
+            <class name="com.epam.reportportal.ui.testng_tests.DefectTypesTests"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="ActionsTests">
+        <classes>
+            <class name="com.epam.reportportal.ui.testng_tests.ActionsTests"/>
+        </classes>
+    </test> <!-- Test -->
+</suite>
